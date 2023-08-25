@@ -1,0 +1,30 @@
+-- Configurar connector source ----------
+-- Correr atraves da pasta principal ----
+curl -X POST localhost:8083/connectors -H "Content-Type:application/json" -H "Accept:application/json" -d @config/source.json
+
+-- Configurar connector sink ------------
+-- Correr atraves da pasta principal ----
+curl -X POST localhost:8083/connectors -H "Content-Type:application/json" -H "Accept:application/json" -d @config/readings_per_location_sink.json
+curl -X POST localhost:8083/connectors -H "Content-Type:application/json" -H "Accept:application/json" -d @config/readings_per_station_sink.json
+
+-- Apagar Connectors ---------------------
+curl -X DELETE http://localhost:8083/connectors/jdbc-source-DBinfo
+
+-- Criar topicos -------------------------
+docker exec broker1 kafka-topics --bootstrap-server broker1:29092 --create --topic results
+docker exec broker1 kafka-topics --bootstrap-server broker1:29092 --create --topic standardWeather
+docker exec broker1 kafka-topics --bootstrap-server broker1:29092 --create --topic weatherAlerts
+docker exec broker1 kafka-topics --bootstrap-server broker1:29092 --create --topic DBinfo
+docker exec broker1 kafka-topics --bootstrap-server broker1:29092 --create --topic readings-per-station
+docker exec broker1 kafka-topics --bootstrap-server broker1:29092 --create --topic readings-per-location
+
+-- Escrever para topico -----------------
+docker exec --interactive --tty broker1 kafka-console-producer --bootstrap-server broker1:29092 --topic quickstart
+
+-- Ler topico ---------------------------
+docker exec --interactive --tty broker1 kafka-console-consumer --bootstrap-server broker1:29092 --topic results --from-beginning
+
+docker exec --interactive --tty broker2 kafka-console-consumer --bootstrap-server broker2:29093 --topic results --from-beginning
+
+-- Listar topicos -----------------------
+docker exec broker1 kafka-topics --bootstrap-server broker2:29092 --list

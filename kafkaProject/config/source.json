@@ -1,0 +1,14 @@
+{
+  "name": "jdbc-source-DBinfo",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSourceConnector",
+    "connection.url": "jdbc:postgresql://database:5432/project3",
+    "connection.user": "postgres",
+    "connection.password": "My01pass",
+    "dialect.name": "PostgreSqlDatabaseDialect",
+    "mode": "bulk",
+    "query": "SELECT * FROM stations",
+    "poll.interval.ms": "30000",
+    "topic.prefix": "DBinfo"
+  }
+}

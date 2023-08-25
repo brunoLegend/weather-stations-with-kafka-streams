@@ -1,0 +1,16 @@
+{
+  "name": "jdbc-sink-Results",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "connection.url": "jdbc:postgresql://database:5432/project3",
+    "connection.user": "postgres",
+    "connection.password": "My01pass",
+    "dialect.name": "PostgreSqlDatabaseDialect",
+    "topics": "results",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "auto.create": true,
+    "auto.evolve": true,
+    "insert.mode": "upsert"
+  }
+}

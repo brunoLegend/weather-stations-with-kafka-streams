@@ -1,0 +1,20 @@
+{
+  "name": "jdbc-sink-readings-per-station",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "connection.url": "jdbc:postgresql://database:5432/project3",
+    "connection.user": "postgres",
+    "connection.password": "My01pass",
+    "dialect.name": "PostgreSqlDatabaseDialect",
+    "topics": "readingsPerStation",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "true",
+    "value.converter.schemas.enable" : "true",
+    "auto.create": true,
+    "auto.evolve": true,
+    "insert.mode": "upsert",
+    "pk.mode": "record_value",
+    "pk.fields": "id"
+  }
+}
